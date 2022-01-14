@@ -62,16 +62,22 @@ public class ItemController {
 	}
 
 	@PostMapping("items/{itemId}/edit")
-	public String updateItem(@PathVariable String itemId, @ModelAttribute("form") BookForm form){
-		Book book = new Book();
-		book.setId(form.getId());
-		book.setName(form.getName());
-		book.setPrice(form.getPrice());
-		book.setStockQuantity(form.getStockQuantity());
-		book.setAuthor(form.getAuthor());
-		book.setIsbn(form.getIsbn());
+	public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form){
+		/**
+		 * 준영속성 컨텍스트로서 merge를 하여 데이터를 변경한다.
+		 * 이 경우 셋팅이 되지 않는 값이 들어오더라도 모든 속성을 변경시키기 때문에 null로 업데이트될 문제점이 존재한다.
+		 */
+//		Book book = new Book();
+//		book.setId(form.getId());
+//		book.setName(form.getName());
+//		book.setPrice(form.getPrice());
+//		book.setStockQuantity(form.getStockQuantity());
+//		book.setAuthor(form.getAuthor());
+//		book.setIsbn(form.getIsbn());
+//		itemService.saveItem(book);
 
-		itemService.saveItem(book);
+		itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
+
 		return "redirect:/items";
 	}
 }
