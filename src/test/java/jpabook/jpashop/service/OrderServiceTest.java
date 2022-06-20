@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import static org.assertj.core.api.Fail.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
@@ -61,7 +60,6 @@ class OrderServiceTest {
 		//then
 		NotEnoughStockException thrown = assertThrows(NotEnoughStockException.class,
 			() -> orderService.order(member.getId(), book.getId(), orderCount));
-
 
 	}
 

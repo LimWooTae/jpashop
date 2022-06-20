@@ -23,7 +23,7 @@ class MemberServiceTest {
 	@Autowired EntityManager em;
 
 	@Test
-	public void 회원가입() throws Exception{
+	public void 회원가입() throws Exception {
 		//given
 		Member member = new Member();
 		member.setName("kim");
@@ -36,7 +36,7 @@ class MemberServiceTest {
 	}
 
 	@Test
-	public void 중복_회원_예외() throws Exception{
+	public void 중복_회원_예외() throws Exception {
 		//given
 		Member member1 = new Member();
 		member1.setName("kim");
