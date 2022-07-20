@@ -100,10 +100,21 @@ public class OrderRepository {
 	// api 스펙이 repository까지 들어온 것이므로 꼭 필요한게 아니면 사용하지 않는게 좋다.
 	public List<OrderSimpleQueryDto> findOrderDtos() {
 		return em.createQuery(
-				"select new jpabook.jpashop.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address)" +
+				"select new jpabook.jpashop.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address)"
+					+
 					" From Order o" +
 					" join o.member m" +
 					" join o.delivery d", OrderSimpleQueryDto.class)
+			.getResultList();
+	}
+
+	public List<Order> findAllWithItem() {
+		return em.createQuery(
+				"select distinct o from Order o" +
+					" join fetch o.member m" +
+					" join fetch o.delivery d" +
+					" join fetch o.orderItems oi" +
+					" join fetch oi.item i", Order.class)
 			.getResultList();
 	}
 }
